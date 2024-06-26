@@ -1,37 +1,31 @@
 package pkg2;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 import java.util.Set;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class test2 {
 
-	public static void main(String[] args) {
-		WebDriver driver = new EdgeDriver();
-		driver.get("https://www.flipkart.com");
-		driver.manage().window().maximize();
-		WebElement searchBox=driver.findElement(By.name("q"));
-		searchBox.sendKeys("mobile phones");
-		searchBox.submit();
+	public static void main(String[] args)throws FileNotFoundException {
+		Map<String,String> map1 = new HashMap<>();
+		File f1 = new File("flipkart.txt");
+		Scanner sc = new Scanner(f1);
+		String str1 = sc.nextLine();
+		String[] arr1 = str1.split(":",2);
+		map1.put(arr1[0],arr1[1]);
+		String url1 = "https://www.flipkart.com";
+		System.out.println(url1);
+		WebDriver wd1 = new EdgeDriver();
+		wd1.get(map1.get("url1"));
 		
-		String mainPage = driver.getWindowHandle();
-		System.out.println("Main page="+ mainPage);
 		
-		driver.findElement(By.xpath("//div[normalize-space()='Motorola G34 5G (Ocean Green, 128 GB)']")).click();
-		
-		Set<String> allPages=driver.getWindowHandles();
-		for(String page : allPages) {
-			if(!page.equals(mainPage)) {
-				driver.switchTo().window(page);
-				break;
-			}
-		}
-		
-		driver.findElement(By.xpath("//button[normalize-space()='Add to cart']")).click();
 	}
-
 }
